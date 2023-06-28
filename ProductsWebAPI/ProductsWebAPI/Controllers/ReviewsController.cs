@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using ProductsWebAPI.Data;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -8,11 +10,19 @@ namespace ProductsWebAPI.Controllers
     [ApiController]
     public class ReviewsController : ControllerBase
     {
+        public readonly ApplicationDbContext _context;
+
+        public ReviewsController(ApplicationDbContext context)
+        {
+            _context = context;
+        }
+
         // GET: api/<ReviewsController>
         [HttpGet]
-        public IEnumerable<string> Get()
+        public IActionResult Get()
         {
-            return new string[] { "value1", "value2" };
+            var reviews = _context.Reviews.ToList();
+            return Ok(reviews);
         }
 
         // GET api/<ReviewsController>/5
