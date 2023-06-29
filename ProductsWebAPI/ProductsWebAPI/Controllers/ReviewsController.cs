@@ -42,28 +42,29 @@ namespace ProductsWebAPI.Controllers
         // Custom Endpoint
         // GET api/Reviews/Product/5
         [HttpGet("Product/{id}")]
-        public IActionResult GetByProductId(int id)
+        public IActionResult GetByProductId(int id)  // refactor to only return the reviews
         {
-            var product = _context.Products.Where(r => r.Id == id).FirstOrDefault();
-            if (product == null)
-            {
-                return NotFound();
-            }
-            double ratingAverage = _context.Reviews.Where(r => r.ProductId == id).Select(r => r.Rating).Average();
-            var productDTO = new ProductDTO
-            {
-                Id = product.Id,
-                Name = product.Name,
-                Price = product.Price,
-                AverageRating = Math.Round(ratingAverage, 2),
-                Reviews = _context.Reviews.Where(r => r.ProductId == id).Select(r => new ReviewDTO
-                {
-                    Id = r.Id,
-                    Text = r.Text,
-                    Rating = r.Rating
-                }).ToList()
-            };
-            return Ok(productDTO);
+            //var product = _context.Products.Where(r => r.Id == id).FirstOrDefault();
+            //if (product == null)
+            //{
+            //    return NotFound();
+            //}
+            //double ratingAverage = _context.Reviews.Where(r => r.ProductId == id).Select(r => r.Rating).Average();
+            //var productDTO = new ProductDTO
+            //{
+            //    Id = product.Id,
+            //    Name = product.Name,
+            //    Price = product.Price,
+            //    AverageRating = Math.Round(ratingAverage, 2),
+            //    Reviews = _context.Reviews.Where(r => r.ProductId == id).Select(r => new ReviewDTO
+            //    {
+            //        Id = r.Id,
+            //        Text = r.Text,
+            //        Rating = r.Rating
+            //    }).ToList()
+            //};
+            var reviews = _context.Reviews.Where(r => r.ProductId == id).ToList();
+            return Ok(reviews);
         }
 
         // POST api/Reviews
