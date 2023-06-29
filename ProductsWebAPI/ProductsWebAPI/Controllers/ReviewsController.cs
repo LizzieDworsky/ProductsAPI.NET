@@ -65,8 +65,16 @@ namespace ProductsWebAPI.Controllers
 
         // DELETE api/<ReviewsController>/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public IActionResult Delete(int id)
         {
+            var review = _context.Reviews.Where(r => r.Id == id).FirstOrDefault();
+            if (review == null)
+            {
+                return NotFound();
+            }
+            _context.Reviews.Remove(review);
+            _context.SaveChanges();
+            return NoContent();
         }
     }
 }
