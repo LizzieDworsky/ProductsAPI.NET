@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductsWebAPI.Data;
+using ProductsWebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -39,8 +40,11 @@ namespace ProductsWebAPI.Controllers
 
         // POST api/<ReviewsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Review newReview)
         {
+            _context.Reviews.Add(newReview);
+            _context.SaveChanges();
+            return StatusCode(201, newReview);
         }
 
         // PUT api/<ReviewsController>/5
