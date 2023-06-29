@@ -43,8 +43,18 @@ namespace ProductsWebAPI.Controllers
 
         // PUT api/<ProductsController>/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value)
+        public IActionResult Put(int id, [FromBody] Product updateProduct)
         {
+            var product = _context.Products.Where(p => p.Id == id).FirstOrDefault();
+            if (product == null)
+            {
+                return NotFound();
+            }
+            product.Name = updateProduct.Name;
+            product.Price = updateProduct.Price;
+            _context.Products.Update(product);
+            _context.SaveChanges();
+            return Ok(product);
         }
 
         // DELETE api/<ProductsController>/5
