@@ -27,9 +27,14 @@ namespace ProductsWebAPI.Controllers
 
         // GET api/<ReviewsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var review = _context.Reviews.Where(r => r.Id == id).FirstOrDefault();
+            if (review == null)
+            {
+                return NotFound();
+            }
+            return Ok(review);
         }
 
         // POST api/<ReviewsController>
