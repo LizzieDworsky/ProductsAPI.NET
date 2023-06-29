@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ProductsWebAPI.Data;
+using ProductsWebAPI.DTOs;
 using ProductsWebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,7 +19,7 @@ namespace ProductsWebAPI.Controllers
             _context = context;
         }
 
-        // GET: api/<ReviewsController>
+        // GET: api/Reviews
         [HttpGet]
         public IActionResult Get()
         {
@@ -26,7 +27,7 @@ namespace ProductsWebAPI.Controllers
             return Ok(reviews);
         }
 
-        // GET api/<ReviewsController>/5
+        // GET api/Reviews/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -38,7 +39,34 @@ namespace ProductsWebAPI.Controllers
             return Ok(review);
         }
 
-        // POST api/<ReviewsController>
+        // Custom Endpoint
+        // GET api/Reviews/Product/5
+        [HttpGet("Product/{id}")]
+        public IActionResult GetByProductId(int id)
+        {
+            var product = _context.Products.Where(r => r.Id == id).FirstOrDefault();
+            if (product == null)
+            {
+                return NotFound();
+            }
+            double ratingAverage = _context.Reviews.Where(r => r.ProductId == id).Select(r => r.Rating).Average();
+            var productDTO = new ProductDTO
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                AverageRating = Math.Round(ratingAverage, 2),
+                Reviews = _context.Reviews.Where(r => r.ProductId == id).Select(r => new ReviewDTO
+                {
+                    Id = r.Id,
+                    Text = r.Text,
+                    Rating = r.Rating
+                }).ToList()
+            };
+            return Ok(productDTO);
+        }
+
+        // POST api/Reviews
         [HttpPost]
         public IActionResult Post([FromBody] Review newReview)
         {
@@ -47,7 +75,7 @@ namespace ProductsWebAPI.Controllers
             return StatusCode(201, newReview);
         }
 
-        // PUT api/<ReviewsController>/5
+        // PUT api/Reviews/5
         [HttpPut("{id}")]
         public IActionResult Put(int id, [FromBody] Review updateReview)
         {
@@ -63,7 +91,7 @@ namespace ProductsWebAPI.Controllers
             return Ok(review);
         }
 
-        // DELETE api/<ReviewsController>/5
+        // DELETE api/Reviews/5
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
