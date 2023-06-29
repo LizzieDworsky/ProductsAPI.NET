@@ -1,6 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductsWebAPI.Data;
 using ProductsWebAPI.Models;
+using ProductsWebAPI.DTOs;
+using Microsoft.EntityFrameworkCore;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -27,9 +29,28 @@ namespace ProductsWebAPI.Controllers
 
         // GET api/<ProductsController>/5
         [HttpGet("{id}")]
-        public string Get(int id)
+        public IActionResult Get(int id)
         {
-            return "value";
+            var product = _context.Products.Include(p => p.Reviews).Where(p => p.Id == id).FirstOrDefault();
+            if (product == null)
+            {
+                return NotFound();
+            }
+            double ratingAverage = (product.Reviews.Count > 0) ? _context.Reviews.Where(r => r.ProductId == id).Select(r => r.Rating).Average() : 0;
+            var productDTO = new ProductDTO
+            {
+                Id = product.Id,
+                Name = product.Name,
+                Price = product.Price,
+                AverageRating = Math.Round(ratingAverage, 2),
+                Reviews = product.Reviews.Select(r => new ReviewDTO
+                {
+                    Id = r.Id,
+                    Text = r.Text,
+                    Rating = r.Rating
+                }).ToList()
+            };
+            return Ok(productDTO);
         }
 
         // POST api/<ProductsController>
