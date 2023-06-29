@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using ProductsWebAPI.Data;
+using ProductsWebAPI.Models;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -33,8 +34,11 @@ namespace ProductsWebAPI.Controllers
 
         // POST api/<ProductsController>
         [HttpPost]
-        public void Post([FromBody] string value)
+        public IActionResult Post([FromBody] Product newProduct)
         {
+            _context.Products.Add(newProduct);
+            _context.SaveChanges();
+            return StatusCode(201, newProduct);
         }
 
         // PUT api/<ProductsController>/5
