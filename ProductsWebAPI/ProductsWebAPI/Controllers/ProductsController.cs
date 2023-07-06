@@ -21,9 +21,13 @@ namespace ProductsWebAPI.Controllers
 
         // GET: api/<ProductsController>
         [HttpGet]
-        public IActionResult Get()
+        public IActionResult Get([FromQuery] double? maxPrice)
         {
             var products = _context.Products.ToList();
+            if (maxPrice != null)
+            {
+                products = products.Where(p => p.Price < maxPrice).ToList();
+            }
             return Ok(products);
         }
 
