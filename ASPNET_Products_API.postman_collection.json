@@ -1,0 +1,310 @@
+{
+	"info": {
+		"_postman_id": "149e4f89-7665-4a32-9974-3c88ab4c3048",
+		"name": "ASPNET_Products_API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "21116298"
+	},
+	"item": [
+		{
+			"name": "Reviews_Endpoints",
+			"item": [
+				{
+					"name": "Get All Reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Reviews/15",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Reviews",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Product Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Reviews/Product/6",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Reviews",
+								"Product",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Review",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Text\": \"Loved this Chopstick set!\",\r\n    \"Rating\": 4,\r\n    \"ProductId\": 5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7167/api/Reviews",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Reviews"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Review",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Text\": \"Loved this Chopstick set!\",\r\n    \"Rating\": 5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7167/api/Reviews/16",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Reviews",
+								"16"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Review",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Reviews/16",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Reviews",
+								"16"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Products_Endpoints",
+			"item": [
+				{
+					"name": "Get All Products",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Products MaxPrice",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Products?maxPrice=5",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Products"
+							],
+							"query": [
+								{
+									"key": "maxPrice",
+									"value": "5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get By Id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Products/1",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Products",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Create a Product",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Tupperware\",\r\n    \"Price\": 8.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7167/api/Products",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update a Product",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Name\": \"Tupperware\",\r\n    \"Price\": 11.5\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "https://localhost:7167/api/Products/9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Products",
+								"9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete a Product",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "https://localhost:7167/api/Products/9",
+							"protocol": "https",
+							"host": [
+								"localhost"
+							],
+							"port": "7167",
+							"path": [
+								"api",
+								"Products",
+								"9"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
